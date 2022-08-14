@@ -20,6 +20,10 @@
 
 body {
     background-color: #1A090D;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 main {
@@ -97,6 +101,7 @@ main {
     font-family: 'Pixel', monospace;
     font-size: 1em;
     color: #6B6570;
+    text-align: end;
 }
 
 .pontuacao-novo h2 span {
@@ -190,6 +195,7 @@ footer {
     align-items: center;
     padding: 1em 2em;
     background-color: #4A314D;
+    margin-top: auto;
 }
 
 footer p {
