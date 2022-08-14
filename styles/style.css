@@ -24,20 +24,19 @@ body {
 
 main {
     display: flex;
-    flex-direction: row;
 }
 
 .sec-boneco {
     width: 30%;
     background-color: #ACE894;
     border: 10px solid #474747;
-    padding: 50px;
+    padding: 1em;
     overflow: hidden;
 }
 
 .vidas {
     font-family: 'Pixel';
-    font-size: 24px;
+    font-size: 1em;
     color: #1A090D;
 }
 
@@ -47,11 +46,17 @@ main {
 
 .sec-boneco p {
     font-family: 'Rubik Iso';
-    font-size: 96px;
+    font-size: 3em;
+    text-align: end;
 }
 
 .sec-boneco p.traco {
-    margin-left: 0.7em;
+    margin-right: 3em;
+}
+
+#div-boneco {
+    text-align: end;
+    margin-right: 7em;
 }
 
 #boneco-1,
@@ -65,30 +70,32 @@ main {
 
 .sec-principal {
     width: 70%;
-    padding: 50px;
+    padding: 1em;
 }
 
 .sec-titulo {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 30px;
+    margin-bottom: 2em;
 }
 
 .titulo {
+    display: inline-block;
     font-family: 'Pixel', monospace;
-    font-size: 48px;
+    font-size: 2em;
     color: #D9D9D9;
 }
 
 .pontuacao-novo {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
 }
 
 .pontuacao-novo h2 {
     font-family: 'Pixel', monospace;
-    font-size: 16px;
+    font-size: 1em;
     color: #6B6570;
 }
 
@@ -113,6 +120,7 @@ main {
     padding: 2em;
     margin: 0 auto;
     margin-bottom: 30px;
+    word-break: break-all;
 }
 
 #palavra {
@@ -125,15 +133,15 @@ main {
 .sec-teclado {
     background-color: #6B6570;
     border: 10px solid #4A314D;
-    padding: 30px;
+    padding: 0.7em;
 }
 
 .teclado-base {
     justify-content: center;
     display: grid;
-    grid-template-columns: repeat(9, 60px);
+    grid-template-columns: repeat(9, minmax(2em, 1fr));
     grid-template-rows: repeat(3, 60px);
-    gap: 15px;
+    gap: 0.3em;
 }
 
 .tecla {
@@ -165,31 +173,51 @@ main {
 .sec-tentativas {
     background-color: #A8BA9A;
     border: 10px solid #4A314D;
-    padding: 10px;
+    padding: 0.3em;
 }
 
 #tentativas {
-    font-family: 'Pixel', monospace;
-    font-size: 24px;
+    font-family: 'Silk', monospace;
+    font-size: 1em;
     color: #1A090D;
     text-align: end;
-    letter-spacing: 0.3em;
+    word-break: break-all;
 }
 
 footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 50px;
+    padding: 1em 2em;
     background-color: #4A314D;
 }
 
 footer p {
     display: inline;
     font-family: 'Arcade', monospace;
-    font-size: 36px;
+    font-size: 1em;
     text-align: center;
     color: #A8BA9A;
 }
 
-footer {}
+@media screen and (max-width: 560px) {
+    main {
+        flex-direction: column;
+    }
+    .sec-boneco,
+    .sec-principal {
+        width: auto;
+    }
+    .sec-titulo,
+    .pontuacao-novo {
+        flex-direction: column;
+        align-items: center;
+    }
+    .titulo {
+        display: none;
+    }
+    .teclado-base {
+        grid-template-columns: repeat(auto-fill, minmax(2em, 1fr));
+        /*grid-template-rows: repeat(3, minmax(1em, 3em));*/
+    }
+}
