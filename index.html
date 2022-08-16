@@ -5,21 +5,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Forca</title>
+    <title>A Forca by Marino</title>
 
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
-    <header>
+    <div class="grid">
+        <section class="sec-titulo">
+            <h1 class="titulo">A FORCA</h1>
+            <div class="pontuacao-novo">
+                <h2>pontuacao: <span id="qtd-pontos">000</span></h2>
 
-    </header>
-    <main>
+                <div class="botoes">
+                    <button id="btnNewGame" class="btn">NOVO JOGO</button>
+                    <button id="btnNewWord" class="btn" onclick="popUp()">NOVA PALAVRA</button>
+                </div>
+            </div>
+        </section>
+
         <section class="sec-boneco">
-            <h2 class="vidas">VIDAS: <span id="qtd-vidas">******</span></h2>
+            <h2 id="vidas">VIDAS: <span id="qtd-vidas">******</span></h2>
             <p>______</p>
             <p class="traco">|</p>
+
             <div id="div-boneco">
                 <!-- Uma função para adicionar as partes individualmente -->
                 <p id="boneco-1">O</p><br>
@@ -29,64 +39,36 @@
                 <p id="boneco-5">\</p>
                 <p id="boneco-6">\</p>
             </div>
+
+            <h3 id="palavra"></h3>
         </section>
+
         <section class="sec-principal">
-            <section class="sec-titulo">
-                <h1 class="titulo">A FORCA</h1>
-                <div class="pontuacao-novo">
-                    <h2>pontuacao: <span id="qtd-pontos">000</span></h2>
+            <section class="sec-saidatxt" id="secSaida">
 
-                    <button id="btnNewGame" class="btn-nvjogo">NOVO JOGO</button>
-                </div>
-            </section>
-
-            <section class="sec-saidatxt">
-                <h3 id="palavra">INICIAR</h3>
             </section>
 
             <section class="sec-tentativas">
-                <p id="tentativas">---</p>
-            </section>
-            <section class="sec-teclado">
-                <div class="teclado-base">
-                    <div class="tecla" onclick="chutar(event, 'Q')">Q</div>
-                    <div class="tecla" onclick="chutar(event, 'W')">W</div>
-                    <div class="tecla" onclick="chutar(event, 'E')">E</div>
-                    <div class="tecla" onclick="chutar(event, 'R')">R</div>
-                    <div class="tecla" onclick="chutar(event, 'T')">T</div>
-                    <div class="tecla" onclick="chutar(event, 'Y')">Y</div>
-                    <div class="tecla" onclick="chutar(event, 'U')">U</div>
-                    <div class="tecla" onclick="chutar(event, 'I')">I</div>
-                    <div class="tecla" onclick="chutar(event, 'O')">O</div>
-                    <div class="tecla" onclick="chutar(event, 'P')">P</div>
-                    <div class="tecla" onclick="chutar(event, 'A')">A</div>
-                    <div class="tecla" onclick="chutar(event, 'S')">S</div>
-                    <div class="tecla" onclick="chutar(event, 'D')">D</div>
-                    <div class="tecla" onclick="chutar(event, 'F')">F</div>
-                    <div class="tecla" onclick="chutar(event, 'G')">G</div>
-                    <div class="tecla" onclick="chutar(event, 'H')">H</div>
-                    <div class="tecla" onclick="chutar(event, 'J')">J</div>
-                    <div class="tecla" onclick="chutar(event, 'K')">K</div>
-                    <div class="tecla" onclick="chutar(event, 'L')">L</div>
-                    <div class="tecla" onclick="chutar(event, 'Z')">Z</div>
-                    <div class="tecla" onclick="chutar(event, 'X')">X</div>
-                    <div class="tecla" onclick="chutar(event, 'C')">C</div>
-                    <div class="tecla" onclick="chutar(event, 'V')">V</div>
-                    <div class="tecla" onclick="chutar(event, 'B')">B</div>
-                    <div class="tecla" onclick="chutar(event, 'N')">N</div>
-                    <div class="tecla" onclick="chutar(event, 'M')">M</div>
-                </div>
+                <p id="tentativas"></p>
             </section>
         </section>
 
-    </main>
-    <footer>
+        <section id="sec-nova-palavra">
+            <input type="text" name="novapalavra" id="newWord" maxlength="8" placeholder="DIGITE AQUI...">
+            <div class="botoes-adcpala">
+                <button class="btn-adc verde" id="btnAdc" type="button">ADICIONAR</button>
+                <button class="btn-adc vermelho" type="button" onclick="popUp()">CANCELAR</button>
+            </div>
+        </section>
+    </div>
+
+    <section class="sec-footer">
         <p>Feito por: Marino Mouzinho</p>
         <div class="redes">
             <a href="https://github.com/AquaMouzinho"><img src="https://img.icons8.com/ios-glyphs/30/A8BA9A/github.png" alt="Logo do GitHub" /></a>
             <a href="https://www.linkedin.com/in/marino-paulino-dev/"><img src="https://img.icons8.com/ios-glyphs/30/A8BA9A/linkedin.png" alt="Logo do Linkedin" /></a>
         </div>
-    </footer>
+    </section>
 
     <script src="./scripts/script.js"></script>
 </body>
