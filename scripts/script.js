@@ -1,147 +1,169 @@
 function limparTabuleiro() {
     erros = 0;
+    acertos = 0;
     tentativas = [];
-    pTentativas.innerHTML = tentativas.toString();
-    qtdVidas.innerHTML = "******";
+    pResultado.innerHTML = tentativas.toString();
+
+    document.getElementById("vidas").innerHTML = `VIDAS: <span id="qtd-vidas">******</span>`;
+    pEspacos.innerHTML = '';
+
     for (let i = 1; i <= 6; i++) {
         document.getElementById("boneco-" + i).style.display = 'none';
     }
 
-    [].forEach.call(btns, function(btn) {
-        btn.disabled = false;
-        btn.className = 'tecla';
-    });
+    document.getElementById("secSaida").innerHTML = '';
+
 }
 
 function gameOver() {
-    alert("Ah... você perdeu! A palavra era: " + palavraDaVez);
-    limparTabuleiro();
-    novaPalavra();
+    pEspacos.innerHTML = "FIM DE JOGO!";
+
+    document.getElementById("secSaida").innerHTML = '';
+    document.getElementById("vidas").innerHTML = `PALAVRA: <span id="qtd-vidas">${palavraDaVez}</span>`;
+}
+
+function gameWin() {
+    vitorias++;
+    document.getElementById("qtd-pontos").innerHTML = vitorias;
+    pEspacos.innerHTML = "VOCE VENCEU. PARABENS!";
 }
 
 function verificarJogo() {
     if (erros >= 6) {
         gameOver();
+        return
     }
 
     let ganhou = true;
-
-    for (let i = 0; i < pEspacos.innerHTML.length; i++) {
-        if (pEspacos.innerHTML[i] == '_') {
-            ganhou = false;
-        }
+    if (acertos < palavraDaVez.length) {
+        ganhou = false;
     }
 
     if (ganhou) {
-        alert("Parabéns! Você ganhou essa partida ;D");
-        vitorias++;
-        document.getElementById("qtd-pontos").innerHTML = vitorias;
-        limparTabuleiro();
-        novaPalavra();
+        gameWin();
     }
 }
 
 function contarErro() {
     erros++;
 
-    if (erros >= 6) {
-        gameOver();
-        return;
-    }
-
-    // console.log(("boneco-" + erros));
     document.getElementById("boneco-" + erros).style.display = 'inline-block';
 
     let texto = '';
     for (let i = 0; i < 6 - erros; i++) {
         texto += "*";
     }
-    qtdVidas.innerHTML = texto;
 
-    //console.log(erros);
+    document.getElementById("vidas").innerHTML = `VIDAS: <span id="qtd-vidas">${texto}</span>`;
+
+    if (erros >= 6) {
+        gameOver();
+        return;
+    }
 }
 
 function escreverPalavra(palavra) {
-    pEspacos.innerHTML = '';
-    const regex = /\W|_/;
-    for (let index = 0; index < palavra.length; index++) {
-        if (!(regex.test(palavra[index]))) {
-            pEspacos.innerHTML += '_';
-        } else {
-            pEspacos.innerHTML += palavra[index];
-        }
-    }
-    // console.log(palavra);
+    let secaoTexto = document.getElementById("secSaida");
+
+    let contador = 0;
+    [...palavra].forEach(letra => {
+        secaoTexto.innerHTML += `
+        <input class="input-palavra" id="inpt${contador}" type="text" maxlength="1" onkeyup="chutar(event)">
+        `;
+        contador++;
+    });
 }
 
-function novaPalavra() {
+function novaRodada() {
     limparTabuleiro();
-
-    fetch("https://api.dicionario-aberto.net/random")
-        .then((data) => data.json())
-        .then((data) => data.word)
-        .then((data) => {
-            palavraDaVez = data.toUpperCase();
-            //document.getElementById('palavra').style.display = 'none';
-            //console.log(palavraDaVez);
-            escreverPalavra(palavraDaVez);
-        });
+    palavraDaVez = palavras[Math.round(Math.random() * (palavras.length - 1))];
+    escreverPalavra(palavraDaVez);
 }
 
 function cadastroTentativa(entrada) {
     tentativas.push(entrada);
-    pTentativas.innerHTML = tentativas.toString();
+    pResultado.innerHTML = tentativas.toString();
 }
 
-function toggleActiveState() {
-    this.classList.toggle('active');
-}
-
-function chutar(e, alternativa) {
-    if (erros >= 6) {
-        verificarJogo();
-        return;
-    }
-
-    cadastroTentativa(alternativa);
-
-    let errou = true;
-    let novoEspacos = '';
-    for (let i = 0; i < palavraDaVez.length; i++) {
-        if (pEspacos.innerHTML[i] == '_' && palavraDaVez[i] == alternativa) {
-            novoEspacos += alternativa;
-            errou = false;
-        } else {
-            novoEspacos += pEspacos.innerHTML[i];
+function chutar(e) {
+    let alternativa = e.target.value;
+    if (regex.test(alternativa)) {
+        for (let j = 0; j < tentativas.length; j++) {
+            if (tentativas[j] == alternativa) {
+                e.target.value = '';
+                alert("Essa letra já foi usada!");
+                return
+            }
         }
-    }
+        cadastroTentativa(alternativa);
 
-    e.target.disabled = true;
+        let errou = true;
+        for (let i = 0; i < palavraDaVez.length; i++) {
+            if (e.target.id == ("inpt" + i)) {
+                if (palavraDaVez[i] != alternativa) {
+                    document.getElementById("inpt" + i).value = '';
+                }
+            }
+            if (palavraDaVez[i] == alternativa) {
+                document.getElementById("inpt" + i).value = alternativa;
+                document.getElementById("inpt" + i).disabled = true;
+                errou = false;
+                acertos++;
+            }
+        }
 
-    if (errou) {
-        contarErro();
-        e.target.className += ' errou';
-    } else {
-        pEspacos.innerHTML = novoEspacos;
+        if (errou) {
+            contarErro();
+            e.target.value = '';
+        }
+
         verificarJogo();
+    } else {
+        e.target.value = '';
+        alert("É APENAS PERMITIDO O USO DE LETRAS MAIÚSCULAS E SEM ACENTO");
     }
 }
+
+function popUp() {
+    let secaoPalavra = document.getElementById("sec-nova-palavra");
+
+    if (secaoPalavra.style.display == "flex") {
+        secaoPalavra.style.display = "none";
+    } else {
+        secaoPalavra.style.display = "flex";
+    }
+}
+
+function adicionarPalavra() {
+    let inputNovaPalavra = document.getElementById("newWord");
+    if (regex.test(inputNovaPalavra.value)) {
+        palavras.push(inputNovaPalavra.value);
+        alert("'" + inputNovaPalavra.value + "' adicionado com sucesso!");
+        popUp();
+    } else {
+        alert("É APENAS PERMITIDO O USO DE LETRAS MAIÚSCULAS E SEM ACENTO");
+        inputNovaPalavra.focus();
+    }
+    inputNovaPalavra.value = '';
+}
+
+const regex = /[A-Z]$/;
 
 var tentativas = [];
+var palavras = ['INERENTE', 'CRIACAO', 'INVASIVO', 'EQUIDADE', 'GANHAR', 'PECULIAR', 'ANUENCIA', 'INSERCAO', 'PRESTEZA', 'SUFRAGIO', 'ACERTO'];
+
 var erros = 0;
+var acertos = 0;
 var vitorias = 0;
 var palavraDaVez = "";
 
 var pEspacos = document.getElementById('palavra');
 var btnNovoJogo = document.getElementById("btnNewGame");
+var btnNovaPalavra = document.getElementById("btnAdc");
 var qtdVidas = document.getElementById("qtd-vidas");
-var pTentativas = document.getElementById("tentativas");
-var btns = document.querySelectorAll('.tecla');
+var pResultado = document.getElementById("tentativas");
 
-btnNovoJogo.onclick = novaPalavra;
+btnNovoJogo.onclick = novaRodada;
+btnNovaPalavra.onclick = adicionarPalavra;
 
-[].forEach.call(btns, function(btn) {
-    btn.addEventListener('click', toggleActiveState, false);
-});
-
-novaPalavra();
+novaRodada();
