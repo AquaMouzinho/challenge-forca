@@ -243,7 +243,6 @@ body {
         justify-content: center;
         flex-direction: column;
     }
-    .sec-boneco,
     .sec-principal {
         height: max-content;
     }

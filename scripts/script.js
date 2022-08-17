@@ -86,7 +86,7 @@ function cadastroTentativa(entrada) {
 }
 
 function chutar(e) {
-    let alternativa = e.target.value;
+    let alternativa = e.target.value.toUpperCase();
     if (regex.test(alternativa)) {
         for (let j = 0; j < tentativas.length; j++) {
             if (tentativas[j] == alternativa) {
@@ -120,7 +120,7 @@ function chutar(e) {
         verificarJogo();
     } else {
         e.target.value = '';
-        alert("É APENAS PERMITIDO O USO DE LETRAS MAIÚSCULAS E SEM ACENTO");
+        alert("É PROIBIDO O USO DE ACENTO OU CARACTERES ESPECIAIS");
     }
 }
 
