@@ -88,34 +88,16 @@ body {
     font-family: 'Pixel';
     font-size: 1em;
     color: #1A090D;
+    margin-bottom: 1em;
 }
 
 #vidas span {
     color: #C62C2C;
 }
 
-.sec-boneco p {
-    font-family: 'Rubik Iso';
-    font-size: 3em;
-    text-align: end;
-}
-
-.sec-boneco p.traco {
-    margin-right: 3em;
-}
-
-#div-boneco {
-    text-align: end;
-    margin-right: 7em;
-}
-
-#boneco-1,
-#boneco-2,
-#boneco-3,
-#boneco-4,
-#boneco-5,
-#boneco-6 {
-    display: none;
+#myCanvas {
+    width: 100%;
+    height: 250px;
 }
 
 .sec-principal {
