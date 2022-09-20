@@ -2,6 +2,7 @@
 Nomeado de "A Forca", este projeto é o resultado do segundo desafio proposto na 3ª turma da #OracleNextEducation. 
 
 ### Prévia no GitHub Pages:
+
 ⛓️: https://aquamouzinho.github.io/challenge-forca/
 
 ## 📋 Sobre
